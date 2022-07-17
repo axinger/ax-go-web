@@ -11,7 +11,7 @@ func Test_map_test1(t *testing.T) {
 	m1["age"] = "30"
 	fmt.Printf("m1 type:%T value %v \n", m1, m1)
 	fmt.Println("make map = ", m1)
-	
+
 	// 不要用new 创建map
 	//m2 := new(map[string]string)
 	//fmt.Printf("m2 use new create type:%T value %v \n", m2, m2)

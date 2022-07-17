@@ -2,7 +2,7 @@ package controller
 
 import (
 	"fmt"
-	"github.com/axinger/ax-go-web/src/global"
+	"github.com/axinger/ax-go-web/src/main/go/global"
 	"github.com/gin-gonic/gin"
 	"net/http"
 	"strconv"
@@ -60,6 +60,22 @@ func (t TestController) Build(r *global.Start) {
 		})
 	})
 
+	// 上传文件
+	r.GET("/upload", func(c *gin.Context) {
+
+		file, err := c.FormFile("file")
+		if err != nil {
+			c.JSON(http.StatusBadRequest, gin.H{
+				"message": err.Error(),
+			})
+			return
+		}
+
+		c.SaveUploadedFile(file, "./"+file.Filename)
+		c.JSON(http.StatusOK, gin.H{
+			"message": file,
+		})
+	})
 }
 
 func (t TestController) GetList() gin.HandlerFunc {

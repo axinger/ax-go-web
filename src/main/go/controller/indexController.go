@@ -2,8 +2,8 @@ package controller
 
 import (
 	"fmt"
-	"github.com/axinger/ax-go-web/src/global"
-	"github.com/axinger/ax-go-web/src/model/dto"
+	"github.com/axinger/ax-go-web/src/main/go/global"
+	"github.com/axinger/ax-go-web/src/main/go/model/dto"
 	"github.com/gin-gonic/gin"
 	"net/http"
 )
@@ -39,11 +39,11 @@ func (i IndexController) Build(r *global.Start) {
 		var login dto.Login
 		// get 用 ShouldBind
 		// post 用 ShouldBindJSON
+		// bind
 		err := c.ShouldBind(&login)
 
 		if err != nil {
 			fmt.Printf("err = %v\n", err)
-
 			c.JSON(http.StatusBadRequest, gin.H{
 				"message": "参数错误",
 			})

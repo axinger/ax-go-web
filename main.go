@@ -2,18 +2,27 @@ package main
 
 import (
 	"fmt"
-	"github.com/axinger/ax-go-web/src/config"
-	"github.com/axinger/ax-go-web/src/controller"
-	"github.com/axinger/ax-go-web/src/global"
+	"github.com/axinger/ax-go-web/src/main/go/config"
+	"github.com/axinger/ax-go-web/src/main/go/controller"
+	"github.com/axinger/ax-go-web/src/main/go/global"
+	"github.com/axinger/ax-go-web/src/main/go/valid"
+	"github.com/gin-gonic/gin/binding"
+	"github.com/go-playground/validator/v10"
 	"github.com/spf13/viper"
 )
 
 func main() {
+
+	// 参数验证规则, 放vaild init 有的顺序问题
+	if v, ok := binding.Validator.Engine().(*validator.Validate); ok {
+		v.RegisterValidation("strMinLength", valid.StrMinLength)
+	}
 	global.Ignite().
 		Mount(
 			controller.NewIndexController(),
 			controller.NewUserController(),
 			controller.NewTestController(),
+			controller.NewBindController(),
 		).
 		Run(":8080")
 }

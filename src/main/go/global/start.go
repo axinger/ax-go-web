@@ -1,7 +1,7 @@
 package global
 
 import (
-	"github.com/axinger/ax-go-web/src/filter"
+	"github.com/axinger/ax-go-web/src/main/go/filter"
 	"github.com/gin-gonic/gin"
 )
 
@@ -16,10 +16,10 @@ func Ignite() *Start {
 
 	// 注册一个全局中间件,拦截器
 	r.Use(filter.StatCost(), filter.TokenHandler())
-	r.LoadHTMLGlob("src/resources/templates/*")
+	r.LoadHTMLGlob("src/main/resources/templates/*")
 
 	//router.Static第一个参数为路由匹配地址，第二个参数为静态资源相对路径
-	r.Static("../static", "src/resources/static")
+	r.Static("../static", "src/main/resources/static")
 
 	return &start
 }

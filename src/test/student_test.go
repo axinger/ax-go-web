@@ -2,7 +2,7 @@ package test
 
 import (
 	"fmt"
-	"github.com/axinger/ax-go-web/src/model"
+	"github.com/axinger/ax-go-web/src/main/go/model"
 	"testing"
 )
 

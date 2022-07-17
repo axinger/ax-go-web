@@ -1,7 +1,7 @@
 package controller
 
 import (
-	"github.com/axinger/ax-go-web/src/global"
+	"github.com/axinger/ax-go-web/src/main/go/global"
 	"github.com/gin-gonic/gin"
 	"net/http"
 )
