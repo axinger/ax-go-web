@@ -6,6 +6,7 @@ import (
 	"github.com/axinger/ax-go-web/src/main/go/controller"
 	"github.com/axinger/ax-go-web/src/main/go/global"
 	"github.com/axinger/ax-go-web/src/main/go/valid"
+	"github.com/flipped-aurora/gin-vue-admin/server/core"
 	"github.com/gin-gonic/gin/binding"
 	"github.com/go-playground/validator/v10"
 	"github.com/spf13/viper"
@@ -23,6 +24,7 @@ func main() {
 			controller.NewUserController(),
 			controller.NewTestController(),
 			controller.NewBindController(),
+			controller.NewFileController(),
 		).
 		Run(":8080")
 }
@@ -33,6 +35,18 @@ var mysqlConfig config.MysqlConfig
 
 // 初始化配置文件
 func init() {
+
+	//global.GVA_VP = core.Viper() // 初始化Viper
+	/// 输出到文件中
+	//global.Log, _ = zap.NewProduction() // 初始化zap日志库
+
+	// 由于zap日志zap.NewProduction()和zap.NewDevelopment()默认是将日志输出到控制台
+	global.Log = core.Zap() //
+	//zap.ReplaceGlobals(global.Log)
+	//global.GVA_DB = initialize.Gorm() // gorm连
+
+	global.Log.Info("Info = " + "2222222")
+	global.Log.Error("error = " + "3333")
 	//viper.SetConfigName("resources/config")
 	//viper.SetConfigType("yaml")
 	////viper.AddConfigPath("/etc/appname/") // 查找配置文件所在路径

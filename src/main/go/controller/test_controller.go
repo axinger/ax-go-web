@@ -60,22 +60,40 @@ func (t TestController) Build(r *global.Start) {
 		})
 	})
 
-	// 上传文件
-	r.GET("/upload", func(c *gin.Context) {
+	// 路由重定向
+	r.GET("/redirect1", func(c *gin.Context) {
+		// 指定重定向的URL
+		c.Request.URL.Path = "/redirect2"
+		r.HandleContext(c)
+	})
+	r.GET("/redirect2", func(c *gin.Context) {
+		c.JSON(http.StatusOK, gin.H{"hello": "world"})
+	})
 
-		file, err := c.FormFile("file")
-		if err != nil {
-			c.JSON(http.StatusBadRequest, gin.H{
-				"message": err.Error(),
-			})
-			return
-		}
+	// 路由组
+	shopGroup := r.Group("/shop")
 
-		c.SaveUploadedFile(file, "./"+file.Filename)
+	// http://localhost:8080/shop/index  要带前部分
+	shopGroup.GET("/index", func(c *gin.Context) {
 		c.JSON(http.StatusOK, gin.H{
-			"message": file,
+			"message": "shop_index",
+		})
+
+	})
+	shopGroup.GET("/cart", func(c *gin.Context) {
+
+		c.JSON(http.StatusOK, gin.H{
+			"message": "cart",
+		})
+
+	})
+	shopGroup.POST("/checkout", func(c *gin.Context) {
+
+		c.JSON(http.StatusOK, gin.H{
+			"message": "checkout",
 		})
 	})
+
 }
 
 func (t TestController) GetList() gin.HandlerFunc {
