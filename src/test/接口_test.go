@@ -22,9 +22,18 @@ type person struct {
 	name string
 }
 
-// 调用接口的方法,就表示实现了接口
+type dog struct {
+	name string
+}
+
+// 调用接口的方法,就表示实现了接口,定义变量
 func (person *person) eat() string {
 	return fmt.Sprintf("person = %v", person)
+}
+
+// 实现协议,不定义变量
+func (dog) eat() string {
+	return fmt.Sprintf("dog = eat")
 }
 
 // 花
